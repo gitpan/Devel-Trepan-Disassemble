@@ -1,0 +1,42 @@
+This file contains message digests of all files listed in MANIFEST,
+signed via the Module::Signature module, version 0.68.
+
+To verify the content in this distribution, first make sure you have
+Module::Signature installed, then type:
+
+    % cpansign -v
+
+It will check each file's integrity, as well as the signature's
+validity.  If "==> Signature verified OK! <==" is not displayed,
+the distribution may already have been compromised, and you should
+not run its Makefile.PL or Build.PL.
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+SHA1 be0627fff2e8aef3d2a14d5d7486babc8a4873ba Artistic
+SHA1 6aae35af702e6754f01b40e0d57d599466df3fad Build.PL
+SHA1 bf6f0a96eea53c35734cf813c2134538cd63e333 ChangeLog
+SHA1 1f7a595582699d903ded866b494f5e21fbdcbe3f Changes
+SHA1 067a2e4b5e1f36609f5aa66c5c12179cba00c36b GNUmakefile
+SHA1 d3de4cba59ef0ba794545505c4c844448e90023e MANIFEST
+SHA1 3647b4506a21cb517155897b42b5612d2e68b8f2 META.json
+SHA1 ad6dc88257987341f02dfa86b4146b568c03cef5 META.yml
+SHA1 b4ffa11257c5d945002293b440bd62a855bbf873 Makefile.PL
+SHA1 0ef9fa132164cdc65137d6742a754ddc21253831 README
+SHA1 5b151a5dd5959e96eecab5c612ca231c09d74de3 README.md
+SHA1 703829d173382c2395f5acd179998b5e14584bda example/five.pm
+SHA1 8624bcdae55baeef00cd11d5dfcfa60f68710a02 gpl-3.0.txt
+SHA1 38443df119267d5eb224b0c27f73d9cab60a31b4 lib/Devel/Trepan/CmdProcessor/Command/Disassemble.pm
+SHA1 4885fca2bc8c9c7edf86994545a18e1f8624851c lib/Devel/Trepan/Disassemble.pm
+SHA1 b64c88efbed8e1898818d004a324453387cf9318 t/10test-cmd-complete.t
+SHA1 7b06d700cf33fab98d40ec8a234eaedd6de15de4 t/Helper.pm
+SHA1 b4df7b113061b45e6d516c8be5656526c17354fc t/data/disassemble.cmd
+SHA1 da39a3ee5e6b4b0d3255bfef95601890afd80709 t/data/disassemble.right
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.11 (GNU/Linux)
+
+iEYEARECAAYFAk8UP4YACgkQGo3lAIJ17CFuUwCfTsiRWB0tk8XJOI4MV9koA681
+L2AAn20jy1lW7FiwzKs4WiDLu5hG0U64
+=LqaC
+-----END PGP SIGNATURE-----
