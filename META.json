@@ -4,7 +4,7 @@
       "Rocky Bernstein <rocky@cpan.org>"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "Module::Build version 0.38, CPAN::Meta::Converter version 2.112150",
+   "generated_by" : "Module::Build version 0.4, CPAN::Meta::Converter version 2.120921",
    "license" : [
       "open_source"
    ],
@@ -21,10 +21,10 @@
       },
       "runtime" : {
          "requires" : {
-            "B::Concise" : 0,
+            "B::Concise" : "0",
             "Devel::Trepan" : "0.001008",
-            "Getopt::Long" : 0,
-            "Test::More" : 0,
+            "Getopt::Long" : "0",
+            "Test::More" : "0.81",
             "perl" : "5.008",
             "rlib" : "0.02"
          }
@@ -37,14 +37,14 @@
       },
       "Devel::Trepan::Disassemble" : {
          "file" : "lib/Devel/Trepan/Disassemble.pm",
-         "version" : "1.0"
+         "version" : "1.1"
       }
    },
    "release_status" : "stable",
    "resources" : {
       "license" : [
-         "http://opensource.org/licenses/gpl-license.php"
+         "http://www.gnu.org/licenses/old-licenses/gpl-1.0.txt"
       ]
    },
-   "version" : "1.0"
+   "version" : "1.1"
 }
