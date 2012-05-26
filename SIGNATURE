@@ -16,29 +16,30 @@ Hash: SHA1
 
 SHA1 be0627fff2e8aef3d2a14d5d7486babc8a4873ba Artistic
 SHA1 29e977ccbf02b527f3cd86d25095acbda3265ce0 Build.PL
-SHA1 bf6f0a96eea53c35734cf813c2134538cd63e333 ChangeLog
-SHA1 211f2aefebfff1a124cfe0f058c2104898a2fb82 Changes
+SHA1 3213ee4d5769758a3f45daeea236535053b46517 ChangeLog
+SHA1 aefa46bd2673f2be702c97bc13ffcc0af76b76e7 Changes
 SHA1 067a2e4b5e1f36609f5aa66c5c12179cba00c36b GNUmakefile
-SHA1 b2e267f0193d2000d043469a077815872e4d1f2c MANIFEST
-SHA1 26440e61c7606b62a0a0b9f1b65326f0b6dcdfc8 META.json
-SHA1 c446c18e57ca7185c2fcb3d1f274802fb54243c2 META.yml
+SHA1 02c40b3f3ccb70c68062cb5309c841d882902afa MANIFEST
+SHA1 1c6eacde416393daafaac6f5a5538ff3650d49c1 META.json
+SHA1 f2ef362ee4a6b1922448b16501067cf7eacbaaa9 META.yml
 SHA1 dee78cf7630b2c88002ed2e5b3552c0453706a7f Makefile.PL
 SHA1 e51c94255e554c4d4c24e77be8389ecf0e751546 README
 SHA1 5b151a5dd5959e96eecab5c612ca231c09d74de3 README.md
-SHA1 703829d173382c2395f5acd179998b5e14584bda example/five.pm
+SHA1 fafb2ff3850ae8a532bb0e3ec1ba31ba01bc8ae9 example/five.pm
 SHA1 8624bcdae55baeef00cd11d5dfcfa60f68710a02 gpl-3.0.txt
-SHA1 1f26a0c700456e3ae7b391c9bcb4e879d4439aec lib/Devel/Trepan/CmdProcessor/Command/Disassemble.pm
-SHA1 840c1f7cbb4645da6cf987a2fa1b97537c255bc4 lib/Devel/Trepan/Disassemble.pm
+SHA1 07d096a9ce6ae42113fc06abbcb0d2e21fc8082b lib/Devel/Trepan/CmdProcessor/Command/Disassemble.pm
+SHA1 88dbc99bd96856b906c08f92986f9a3576714c9e lib/Devel/Trepan/Disassemble.pm
 SHA1 3adb6c0b4bd7bfb57744d942519ab2e709d83f53 t/00load.t
 SHA1 0028fef9be7783d9eba29ae4d3940cc99cc8d14e t/00test-pod.t
 SHA1 b64c88efbed8e1898818d004a324453387cf9318 t/10test-cmd-complete.t
+SHA1 0c9038c3fea4edb5149657fc9cb9ef65d6f067c0 t/20test-disassemble.t
 SHA1 7b06d700cf33fab98d40ec8a234eaedd6de15de4 t/Helper.pm
 SHA1 b4df7b113061b45e6d516c8be5656526c17354fc t/data/disassemble.cmd
-SHA1 da39a3ee5e6b4b0d3255bfef95601890afd80709 t/data/disassemble.right
+SHA1 c9850e6c0651b1d07d188e7260e8cf3814ca9375 t/data/disassemble.right
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.11 (GNU/Linux)
 
-iEYEARECAAYFAk+//4oACgkQGo3lAIJ17CG7NgCeM7vCftmT27pgowLJSNIqpVgQ
-948AoISQ4tJPmvcpx/Lqohwf+opd2Fis
-=nRhC
+iEYEARECAAYFAk/BVS8ACgkQGo3lAIJ17CEcWQCglgBy5qirxGzAncVUfBQh1QyX
+twQAnizP1pZj8GXNJdpUIR8hLx67evwb
+=Ccll
 -----END PGP SIGNATURE-----
