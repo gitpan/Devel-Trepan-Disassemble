@@ -15,31 +15,31 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 be0627fff2e8aef3d2a14d5d7486babc8a4873ba Artistic
-SHA1 f6ccf35f4b7a35b8e4046af889754aaf312e04e3 Build.PL
-SHA1 aaad3f636891fe72d24c0fdda9a641c979040bb9 ChangeLog
-SHA1 b0eb054748c2278a4b4abd0c299a2d3a677c3aaa Changes
+SHA1 6c7263883907359c91adedef33a9003701bcc446 Build.PL
+SHA1 14961baa009edba439fedade18b08d52ab6aa3a2 ChangeLog
+SHA1 c1e87353b2dfcd843a9f1039ebcde0a6b443187c Changes
 SHA1 067a2e4b5e1f36609f5aa66c5c12179cba00c36b GNUmakefile
 SHA1 02c40b3f3ccb70c68062cb5309c841d882902afa MANIFEST
-SHA1 c26fa09b383b89c766d2b4a538133b7bcf0dc172 META.json
-SHA1 97136f19b9e164bad6b1c5227a148f943f7f6e2c META.yml
+SHA1 235d281fed544559baa2dfc2ca57d6a436f1a62f META.json
+SHA1 2ec79445b6f54c4a103fbe1f7fc1a0756b1c67f7 META.yml
 SHA1 dee78cf7630b2c88002ed2e5b3552c0453706a7f Makefile.PL
 SHA1 e51c94255e554c4d4c24e77be8389ecf0e751546 README
 SHA1 5b151a5dd5959e96eecab5c612ca231c09d74de3 README.md
 SHA1 fafb2ff3850ae8a532bb0e3ec1ba31ba01bc8ae9 example/five.pm
 SHA1 8624bcdae55baeef00cd11d5dfcfa60f68710a02 gpl-3.0.txt
 SHA1 07d096a9ce6ae42113fc06abbcb0d2e21fc8082b lib/Devel/Trepan/CmdProcessor/Command/Disassemble.pm
-SHA1 9f2b74e1226cec05df38a2aa7bb247b6b39e5562 lib/Devel/Trepan/Disassemble.pm
+SHA1 d879c0ed1bc7af06fe735a459d792c14bee2f2f0 lib/Devel/Trepan/Disassemble.pm
 SHA1 3adb6c0b4bd7bfb57744d942519ab2e709d83f53 t/00load.t
 SHA1 0028fef9be7783d9eba29ae4d3940cc99cc8d14e t/00test-pod.t
 SHA1 b64c88efbed8e1898818d004a324453387cf9318 t/10test-cmd-complete.t
 SHA1 5fefc218006ee0e8cdc0cfb5d066821d4831b122 t/20test-disassemble.t
-SHA1 0f8b725de2ee535bcfa446b071e63ee8307c04fd t/Helper.pm
+SHA1 d5496ce82ba1a666b80106617adeed2a0156b57e t/Helper.pm
 SHA1 b4df7b113061b45e6d516c8be5656526c17354fc t/data/disassemble.cmd
-SHA1 c9850e6c0651b1d07d188e7260e8cf3814ca9375 t/data/disassemble.right
+SHA1 fcf03c0af09eaa01be51542011ae099606cd69db t/data/disassemble.right
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.11 (GNU/Linux)
 
-iEYEARECAAYFAk/CGK0ACgkQGo3lAIJ17CG4eACgom/uZ5k86TEzoHft3R91tmDJ
-ckcAnRZINgnpHH4kJ6ImxAAyACkEoyyb
-=JuFJ
+iEYEARECAAYFAlAxkD8ACgkQGo3lAIJ17CHPTQCbBsjuSVNpjrD5/WQBoBjhYPN/
+66kAoKDGTHTSlztURscQc3zz3IU5a2Jg
+=8uX5
 -----END PGP SIGNATURE-----

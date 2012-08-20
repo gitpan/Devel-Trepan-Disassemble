@@ -22,7 +22,7 @@
       "runtime" : {
          "requires" : {
             "B::Concise" : "0",
-            "Devel::Trepan" : "0.001008",
+            "Devel::Trepan" : "0.30",
             "Getopt::Long" : "0",
             "perl" : "5.008",
             "rlib" : "0.02"
@@ -36,14 +36,20 @@
       },
       "Devel::Trepan::Disassemble" : {
          "file" : "lib/Devel/Trepan/Disassemble.pm",
-         "version" : "1.3"
+         "version" : "1.4"
       }
    },
    "release_status" : "stable",
    "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/rocky/Perl-Devel-Trepan/issues"
+      },
       "license" : [
          "http://www.gnu.org/licenses/old-licenses/gpl-1.0.txt"
-      ]
+      ],
+      "repository" : {
+         "url" : "http://github.com/rocky/Perl-Devel-Trepan"
+      }
    },
-   "version" : "1.3"
+   "version" : "1.4"
 }
