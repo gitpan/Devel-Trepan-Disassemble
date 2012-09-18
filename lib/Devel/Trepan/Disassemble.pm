@@ -1,17 +1,23 @@
 #!/usr/bin/env perl 
 # Copyright (C) 2012 Rocky Bernstein <rocky@cpan.org>
 package Devel::Trepan::Disassemble;
-our $VERSION='1.5';
+our $VERSION='1.6';
 "All of the real action is in Devel::Trepan::CmdProcessor::Command::Disassemble.pm";
 __END__
 
 =pod
 
 =for comment
-This file is shared by both Trepan.pod and Trepan.pm after its __END__
-Trepan.pod is useful in the Github wiki:
-https://github.com/rocky/Perl-Devel-Trepan/wiki
+This file is shared by both Disassemble.pod and Disassemble.pm after
+its __END__
+Disassemble.pod is useful in the Github wiki:
+https://github.com/rocky/Perl-Devel-Trepan-Disassemble/wiki
 where we can immediately see the results and others can contribute.
+
+=for comment
+The version Disassemble.pm however is what is seen at
+https://metacpan.org/module/Devel::Trepan::Disassemble and when folks
+download this file.
 
 =head1 NAME
 

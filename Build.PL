@@ -57,7 +57,6 @@ my $builder = Module::Build->new(
         'Syntax::Highlight::Perl::Improved' => '1.01',
     },
     recommends => {
-        'Devel::Callsite'                   => 0.05,
         'Pod::Text::Color'                  => 2.06,
     },
     requires => {
@@ -66,6 +65,7 @@ my $builder = Module::Build->new(
 	'Devel::Trepan'                     => '0.42',
 	'Getopt::Long'                      => 0,
         'rlib'                              => '0.02',
+        'Devel::Callsite'                   => 0.05,
     },
     sign                => ($ENV{PERL_MB_NOSIGN} ? 0 : 1),
     );

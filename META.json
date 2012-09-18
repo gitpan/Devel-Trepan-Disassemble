@@ -21,11 +21,11 @@
       },
       "runtime" : {
          "recommends" : {
-            "Devel::Callsite" : "0.05",
             "Pod::Text::Color" : "2.06"
          },
          "requires" : {
             "B::Concise" : "0",
+            "Devel::Callsite" : "0.05",
             "Devel::Trepan" : "0.42",
             "Getopt::Long" : "0",
             "perl" : "5.008",
@@ -40,7 +40,7 @@
       },
       "Devel::Trepan::Disassemble" : {
          "file" : "lib/Devel/Trepan/Disassemble.pm",
-         "version" : "1.5"
+         "version" : "1.6"
       }
    },
    "release_status" : "stable",
@@ -55,5 +55,5 @@
          "url" : "http://github.com/rocky/Perl-Devel-Trepan-Disassemble"
       }
    },
-   "version" : "1.5"
+   "version" : "1.6"
 }

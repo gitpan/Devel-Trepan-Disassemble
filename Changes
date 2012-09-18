@@ -1,5 +1,8 @@
 Revision history for Devel-Trepan-Disassemble
 
+1.6  Sept 18, 2012
+- Botched 1.5 release
+
 1.5  Sept 18, 2012
 - Add POD help
 - Mark breakpoints
