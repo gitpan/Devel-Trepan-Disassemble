@@ -19,6 +19,15 @@ use warnings;
 use Module::Build;
 use Config;
 
+use File::Spec;
+use File::Basename;
+my $lib = File::Spec->catfile(dirname(__FILE__), 'lib');
+unshift @INC, $lib;
+require Devel::Trepan::Disassemble;
+
+my $release_status = ($Devel::Trepan::Disassemble::VERSION =~ /_/) ? 
+    'testing' : 'stable';
+
 my $builder = Module::Build->new( 
     module_name         => 'Devel::Trepan::Disassemble',
     add_to_cleanup      => [ 'Devel-Trepan-*', 'tmp*', '*.got'  ],
@@ -29,13 +38,12 @@ my $builder = Module::Build->new(
     dist_version_from   => 'lib/Devel/Trepan/Disassemble.pm',
     license             => 'gpl',
     needs_compiler      => 0,
-    release_status      => 'stable',   # or 'testing'
-    # release_status      => 'testing',  # or 'stable'
+    release_status      => $release_status,
 
     meta_merge => {
 	resources => {
-	    bugtracker  => 'https://github.com/rocky/Perl-Devel-Trepan/issues',
-	    repository  => 'http://github.com/rocky/Perl-Devel-Trepan'
+	    bugtracker  => 'https://github.com/rocky/Perl-Devel-Trepan-Disassemble/issues',
+	    repository  => 'http://github.com/rocky/Perl-Devel-Trepan-Disassemble'
 	}
     },    
 
@@ -43,13 +51,19 @@ my $builder = Module::Build->new(
 	'Module::Build' => '0.32',
     },
     test_requires  => { 
-	'Data::Dumper' => 0,
-        'Test::Simple' => '0.81',
+	'Data::Dumper'                      => 0,
+        'Test::Simple'                      => '0.81',
+        'rlib'                              => '0.02',
+        'Syntax::Highlight::Perl::Improved' => '1.01',
+    },
+    recommends => {
+        'Devel::Callsite'                   => 0.05,
+        'Pod::Text::Color'                  => 2.06,
     },
     requires => {
 	'perl'                              => '5.008',               
 	'B::Concise'                        => 0,
-	'Devel::Trepan'                     => '0.30',
+	'Devel::Trepan'                     => '0.42',
 	'Getopt::Long'                      => 0,
         'rlib'                              => '0.02',
     },

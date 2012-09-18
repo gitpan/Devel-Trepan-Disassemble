@@ -20,9 +20,13 @@
          }
       },
       "runtime" : {
+         "recommends" : {
+            "Devel::Callsite" : "0.05",
+            "Pod::Text::Color" : "2.06"
+         },
          "requires" : {
             "B::Concise" : "0",
-            "Devel::Trepan" : "0.30",
+            "Devel::Trepan" : "0.42",
             "Getopt::Long" : "0",
             "perl" : "5.008",
             "rlib" : "0.02"
@@ -36,20 +40,20 @@
       },
       "Devel::Trepan::Disassemble" : {
          "file" : "lib/Devel/Trepan/Disassemble.pm",
-         "version" : "1.4"
+         "version" : "1.5"
       }
    },
    "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
-         "web" : "https://github.com/rocky/Perl-Devel-Trepan/issues"
+         "web" : "https://github.com/rocky/Perl-Devel-Trepan-Disassemble/issues"
       },
       "license" : [
          "http://www.gnu.org/licenses/old-licenses/gpl-1.0.txt"
       ],
       "repository" : {
-         "url" : "http://github.com/rocky/Perl-Devel-Trepan"
+         "url" : "http://github.com/rocky/Perl-Devel-Trepan-Disassemble"
       }
    },
-   "version" : "1.4"
+   "version" : "1.5"
 }
