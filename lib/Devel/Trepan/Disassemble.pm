@@ -1,7 +1,7 @@
 #!/usr/bin/env perl 
 # Copyright (C) 2012 Rocky Bernstein <rocky@cpan.org>
 package Devel::Trepan::Disassemble;
-our $VERSION='1.6';
+our $VERSION='1.7';
 "All of the real action is in Devel::Trepan::CmdProcessor::Command::Disassemble.pm";
 __END__
 
@@ -31,9 +31,10 @@ This adds a I<disassemble> command to the L<Devel::Trepan> debugger.
 
 B<disassemble> [I<options>] [I<subroutine>|I<package-name> ...]
 
-options: 
+I<options>:
+
     -concise
-    -terse 
+    -terse
     -linenoise
     -debug
     -compact
@@ -42,10 +43,17 @@ options:
     -loose
     -vt
     -ascii
+    -from <line-number>
+    -to <line-number>
 
 Use L<B::Concise> to disassemble a list of subroutines or a packages.  If
 no subroutine or package is specified, use the subroutine where the
 program is currently stopped.
+
+Flags C<-from> and C<-to> respectively exclude lines less than or
+greater that the supplied line number. Other flags are are the
+corresponding I<B::Concise> flags and that should be consulted for
+their meaning.
 
 =head1 EXAMPLES
 
@@ -59,7 +67,7 @@ program is currently stopped.
     	op_sibling	0
     	op_ppaddr	PL_ppaddr[OP_LEAVE]
     	op_type		185
-    	op_flags	13
+    	op_flags	0001101: parenthesized, want kids, want void
     	op_private	64	
     	op_first	0xa0e6f60
     	op_last		0xa0e7298
@@ -68,22 +76,22 @@ program is currently stopped.
     	op_sibling	0xa0dd228
     	op_ppaddr	PL_ppaddr[OP_ENTER]
     	op_type		184
-    	op_flags	0
+    	op_flags	0000000
     	op_private	0	
-    # 1: -src not supported for -e
+    # 1: 1
     COP (0xa0dd228)
     	op_next		0xa0dd208
     	op_sibling	0xa0e7298
     	op_ppaddr	PL_ppaddr[OP_DBSTATE]
     	op_type		182
-    	op_flags	1
+    	op_flags	0000001: want void
     	op_private	0	256
     OP (0xa0e7298)
     	op_next		0xa0dd208
     	op_sibling	0
     	op_ppaddr	PL_ppaddr[OP_NULL]
     	op_type		0
-    	op_flags	1
+    	op_flags	0000001: want void
     	op_private	0	
 
 Above, the C<=E<gt>> indicates the next instruction to run. 
@@ -95,11 +103,11 @@ C<-tree> option; C<--tree> is okay too.
 
     main program:
     0xa0dd208-+-0xa0e6f60
-              |-# 1:  -src not supported for -e
+              |-# 1:  1
     0xa0dd228
               `-0xa0e7298
 
-Finally, functions can be given
+Functions can be given:
 
    (trepanpl): disasm -basic File::Basename::basename
 
@@ -111,9 +119,10 @@ Finally, functions can be given
     	op_type		174
     ...
 
-=head1 BUGS
+Finally, you can limit the range of output using C<-from> and/or C<-to>: 
 
-Add support for C<-e> via I<trepan.pl>'s temporary file renaming.
+   (trepanpl): disasm -from 227 -to 236 -basic File::Basename::basename 
+  
 
 =head1 AUTHORS
 

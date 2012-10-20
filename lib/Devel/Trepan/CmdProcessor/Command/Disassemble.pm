@@ -31,6 +31,35 @@ unless (@ISA) {
 EOE
 }
 
+# OPf_ flags from Perl's op.h
+# Note weird bit combiniation 3, 'want list', we have to handle separately
+
+sub interpret_flags($) 
+{
+    my $op_flags = shift;
+    my @OP_FLAGS = (
+	'want void',
+	'want scalar',
+	'want kids',
+	'parenthesized',
+	'reference',
+	'modify lvalue',
+	'arg stacked',
+	'special',
+	);
+    my @flags_str = ();
+    if ( ($op_flags & 0b11) == 0b11 ) {
+	push @flags_str, 'want list';
+	$op_flags ^= 0b11;
+    }
+    while ($op_flags) {
+	my $flag_str = shift @OP_FLAGS;
+	unshift(@flags_str, $flag_str) if $op_flags & 1;
+	$op_flags /= 2;
+    }
+    return @flags_str ? (': ' . join(', ', @flags_str)) : '';
+}
+
 use strict;
 
 use vars qw(@ISA $DEFAULT_OPTIONS); 
@@ -42,7 +71,6 @@ $DEFAULT_OPTIONS = {
     line_style => 'debug',
     order      => '-basic',
     tree_style => '-ascii',
-    highlight  => 1,
 };
 
 our $NAME = set_name();
@@ -62,10 +90,17 @@ options:
     -loose
     -vt
     -ascii
+    -from I<line number>
+    -to  I<line_number>
 
 Use L<B::Concise> to disassemble a list of subroutines or a packages.  If
 no subroutine or package is specified, use the subroutine where the
 program is currently stopped.
+
+Flags C<-from> and C<-to> respectively exclude lines less than or
+greater that the supplied line number. Other flags are are the
+corresponding I<B::Concise> flags and that should be consulted for
+their meaning.
 
 =cut
 HELP
@@ -76,7 +111,7 @@ sub complete($$)
     my ($self, $prefix) = @_;
     my @subs = keys %DB::sub;
     my @opts = (qw(-concise -terse -linenoise -debug -basic -exec -tree 
-                   -compact -loose -vt -ascii),
+                   -compact -loose -vt -ascii -from -to),
 		@subs);
     Devel::Trepan::Complete::complete_token(\@opts, $prefix) ;
 }
@@ -85,25 +120,28 @@ sub parse_options($$)
 {
     my ($self, $args) = @_;
     my $opts = $DEFAULT_OPTIONS;
-    my $result = &GetOptionsFromArray($args,
-          '-concise'    => sub { $opts->{line_style} = 'concise'},
-          '-terse'      => sub { $opts->{line_style} = 'terse'},
-          '-linenoise'  => sub { $opts->{line_style} = 'linenoise'},
-          '-debug'      => sub { $opts->{line_style} = 'debug'},
-	  # FIXME: would need to check that ENV vars B_CONCISE_FORMAT, B_CONCISE_TREE_FORMAT
-	  # and B_CONCISE_GOTO_FORMAT are set
-          # '-env'        => sub { $opts->{line_style} = 'env'},
-
-          '-basic'      => sub { $opts->{order} = '-basic'; },
-          '-exec'       => sub { $opts->{order} = '-exec'; },
-          '-tree'       => sub { $opts->{order} = '-tree'; },
-
-          '-compact'    => sub { $opts->{tree_style} = '-compact'; },
-          '-loose'      => sub { $opts->{tree_style} = '-loose'; },
-          '-vt'         => sub { $opts->{tree_style} = '-vt'; },
-          '-ascii'      => sub { $opts->{tree_style} = '-ascii'; },
-          '-highlight'  => sub { $opts->{highlight} = 1; },
-          '-no-highlight' => sub { $opts->{highlight} = 0; },
+    my $result = &GetOptionsFromArray(
+	$args,
+	'-concise'    => sub { $opts->{line_style} = 'concise'},
+	'-terse'      => sub { $opts->{line_style} = 'terse'},
+	'-linenoise'  => sub { $opts->{line_style} = 'linenoise'},
+	'-debug'      => sub { $opts->{line_style} = 'debug'},
+	# FIXME: would need to check that ENV vars B_CONCISE_FORMAT, B_CONCISE_TREE_FORMAT
+	# and B_CONCISE_GOTO_FORMAT are set
+	# '-env'        => sub { $opts->{line_style} = 'env'},
+	
+	'-basic'      => sub { $opts->{order} = '-basic'; },
+	'-exec'       => sub { $opts->{order} = '-exec'; },
+	'-tree'       => sub { $opts->{order} = '-tree'; },
+	
+	'-compact'    => sub { $opts->{tree_style} = '-compact'; },
+	'-loose'      => sub { $opts->{tree_style} = '-loose'; },
+	'-vt'         => sub { $opts->{tree_style} = '-vt'; },
+	'-ascii'      => sub { $opts->{tree_style} = '-ascii'; },
+	'-highlight'  => sub { $opts->{highlight} = 1; },
+	'-no-highlight' => sub { $opts->{highlight} = 0; },
+	'from=i'     => \$opts->{from},
+	'to=i'       => \$opts->{to}
 	);
     $opts;
 }
@@ -117,18 +155,33 @@ sub highlight_string($)
     $string;
   }
 
-sub markup_basic($$) 
+sub markup_basic($$$$$) 
 {
-    my ($lines, $highlight) = @_;
+    my ($lines, $highlight, $proc, $from, $to) = @_;
     my @lines = split /\n/, $lines;
+    my $current_line = 0;
+    my @newlines = ();
     foreach (@lines) {
 	my $marker = '    ';
 	if (/^#(\s+)(\d+):(\s+)(.+)$/) {
 	    my ($space1, $lineno, $space2, $perl_code) = ($1, $2, $3, $4);
-	    # print "FOUND line $lineno\n";
-	    if ($highlight) {
-		my $marked = highlight_string($perl_code);
-		$_ = "#${space1}${lineno}:${space2}$marked";
+	    $current_line = $lineno;
+	    my $marked;
+	    if ($perl_code eq '-src not supported for -e' || 
+		$perl_code eq '-src unavailable under -e') {
+		my $opts = {
+		    output => $highlight,
+		    max_continue => 5,
+		};
+		my $filename = $proc->{frame}{file};
+		$marked = DB::LineCache::getline($filename, $lineno, $opts);
+		$_ = "#${space1}${lineno}:${space2}$marked" if $marked;
+	    } else {
+		# print "FOUND line $lineno\n";
+		if ($highlight) {
+		    $marked = highlight_string($perl_code);
+		    $_ = "#${space1}${lineno}:${space2}$marked";
+		}
 	    }
 	    ## FIXME: move into DB::Breakpoint and adjust List.pm
 	    if (exists($DB::dbline{$lineno}) and 
@@ -144,6 +197,12 @@ sub markup_basic($$)
 	    }
 	    ## FIXME move above code
 	    
+	} elsif (/^(\s+op_flags\s+)(\d+)$/) {
+	    # Interpret flag string
+	    my $flag = $2;
+	    my $bin_flag_str = sprintf '%07b', $flag;
+	    $bin_flag_str = $perl_formatter->format_token($bin_flag_str, 'Number') if $highlight;
+	    $_ = sprintf "%s%s%s", $1, $bin_flag_str, interpret_flags($flag);
 	} elsif (/^([A-Z]+) \((0x[0-9a-f]+)\)/) {
 	    my ($op, $hex_str) = ($1, $2);
 	    # print "FOUND $op, $hex_str\n";
@@ -159,22 +218,39 @@ sub markup_basic($$)
 
 	}
 	$_ = $marker . $_;
+	next if $current_line < $from or $current_line > $to;
+	push @newlines, $_;
     }
-    return join("\n", @lines);
+    return join("\n", @newlines);
 }
 
-sub markup_tree($$) 
+sub markup_tree($$$) 
 {
-    my ($lines, $highlight) = @_;
+    my ($lines, $highlight, $proc) = @_;
     my @lines = split /\n/, $lines;
     foreach (@lines) {
 	my $marker = '    ';
 	if (/^(\s+)\|-#(\s+)(\d+):(.+)$/) {
 	    my ($space1, $space2, $lineno, $perl_code) = ($1, $2, $3, $4);
-	    if ($highlight) {
-		my $marked = highlight_string($perl_code);
+	    my $marked;
+	    # FIXME: DRY code with markup_basic
+	    if ($perl_code =~ 
+		/-src (?:(?:not supported for)|(?:unavailable under)) -e/) {
+		my $opts = {
+		    output => $highlight,
+		    max_continue => 5,
+		};
+		my $filename = $proc->{frame}{file};
+		$marked = DB::LineCache::getline($filename, $lineno, $opts);
 		$_ = "${space1}|-#${space2}${lineno}: $marked";
+	    } else {
+		# print "FOUND line $lineno\n";
+		if ($highlight) {
+		    $marked = highlight_string($perl_code);
+		    $_ = "${space1}|-#${space2}${lineno}: $marked";
+		}
 	    }
+	    ## END above FIXME
 	    ## FIXME: move into DB::Breakpoint and adjust List.pm
 	    if (exists($DB::dbline{$lineno}) and 
 		my $brkpts = $DB::dbline{$lineno}) {
@@ -203,11 +279,12 @@ sub do_one($$$$)
     B::Concise::set_style_standard($options->{line_style});
     B::Concise::walk_output(\my $buf);
     $walker->();			# walks and renders into $buf;
-    ## FIXME: syntax highlight the output.a
+    my $highlight = $options->{highlight} && $proc->{settings}{highlight};
+    ## FIXME: syntax highlight the output.
     if ('-tree' eq $options->{order}) {
-	$buf = markup_tree($buf, $options->{highlight});
+	$buf = markup_tree($buf, $options->{highlight}, $proc);
     } elsif ('-basic' eq $options->{order}) {
-	$buf = markup_basic($buf, $options->{highlight});
+	$buf = markup_basic($buf, $options->{highlight}, $proc, $options->{from}, $options->{to});
     }
     $proc->msg($buf);
 }
@@ -217,8 +294,11 @@ sub run($$)
     my ($self, $args) = @_;
     my @args = @$args;
     shift @args;
-    my $options = parse_options($self, \@args);
     my $proc = $self->{proc};
+    $DEFAULT_OPTIONS->{highlight} = $proc->{settings}{highlight};
+    $DEFAULT_OPTIONS->{from} = 0;
+    $DEFAULT_OPTIONS->{to} = 100000;
+    my $options = parse_options($self, \@args);
     unless (scalar(@args)) {
 	if ($proc->funcname && $proc->funcname ne 'DB::DB') {
 	    push @args, $proc->funcname;
@@ -234,6 +314,8 @@ sub run($$)
 		   ["-stash=$disasm_unit"]);
 	} elsif ($proc->is_method($disasm_unit)) {
 	    do_one($proc, "Subroutine $disasm_unit", $options, [$disasm_unit]);
+	} elsif (-r $disasm_unit) {
+	    do_one($proc, "File $disasm_unit", $options, [$disasm_unit]);
 	} else {
 	    $proc->errmsg("Don't know $disasm_unit as a package or function");
 	}
@@ -243,6 +325,10 @@ sub run($$)
   
 # Demo it
 unless (caller) {
+
+    for my $flags (0, 1, 2, 3, 0b1101, 0b100011) {
+	printf "%07b: %s\n", $flags, interpret_flags($flags);
+    }
     require Devel::Trepan::CmdProcessor;
     eval { use Devel::Callsite };
     my $proc = Devel::Trepan::CmdProcessor->new(undef, 'bogus');
@@ -266,7 +352,9 @@ unless (caller) {
     $DB::OP_addr = site();
     $cmd->run([$NAME, '-tree']);
     print '=' x 50, "\n";
-    $cmd->run([$NAME, '-basic']);
+    $cmd->run([$NAME, '-basic', '-from', __LINE__, '-to',  __LINE__ +1]);
+    print '=' x 50, "\n";
+    $cmd->run([$NAME, '-basic', '--no-highlight', '-to', 25]);
 }
 
 1;
