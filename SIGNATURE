@@ -15,35 +15,35 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 be0627fff2e8aef3d2a14d5d7486babc8a4873ba Artistic
-SHA1 86fec672642bebaf5b0fd7d216427f6139b2898d Build.PL
-SHA1 42f81b8c1d4116c5d02f8bd01d1abfda7253a94c ChangeLog
-SHA1 f2c4fcd8d56f2243916ef898019ff09d642ec4ab Changes
-SHA1 067a2e4b5e1f36609f5aa66c5c12179cba00c36b GNUmakefile
-SHA1 b44a5cf1589bf91d7a6499af0fdfdfdd66f37e57 MANIFEST
-SHA1 8c1cfff04d896a5a2a1dc9808ff10eb955878727 META.json
-SHA1 fc1bd7010d2181f2b4e9af86fedfbda1d69dbc54 META.yml
+SHA1 9824cc01ce05ab37d88462a523b277108319c9b5 Build.PL
+SHA1 3f32c4f7f8d1424d66229e6fc3bba66ec10ab8d5 ChangeLog
+SHA1 0389ad913846f332a6a3d826313051bfe6796ff9 Changes
+SHA1 47d7b6556fe25aa2d9171353b9a9f9e1a158c0bd GNUmakefile
+SHA1 53c1eff36daa4672f8ddba8419d6b06eefb2220c MANIFEST
+SHA1 60deb5f2a8605833b983b8870c0c2304c8493ae6 META.json
+SHA1 81caf9056782f50a662afd0a6a23023a92865636 META.yml
 SHA1 dee78cf7630b2c88002ed2e5b3552c0453706a7f Makefile.PL
 SHA1 e51c94255e554c4d4c24e77be8389ecf0e751546 README
 SHA1 5b151a5dd5959e96eecab5c612ca231c09d74de3 README.md
 SHA1 fafb2ff3850ae8a532bb0e3ec1ba31ba01bc8ae9 example/five.pm
-SHA1 8624bcdae55baeef00cd11d5dfcfa60f68710a02 gpl-3.0.txt
-SHA1 392283045187c5f78c486bb9ff76d617c65ab54b lib/Devel/Trepan/CmdProcessor/Command/Disassemble.pm
-SHA1 0b4d94f823cf62f58516b9b3f96d704ecd80e1e6 lib/Devel/Trepan/Disassemble.pm
+SHA1 4cc77b90af91e615a64ae04893fdffa7939db84c gpl-2.0.txt
+SHA1 4d8af3f604c8c8915fd9ae249c60de4fd720f5bb lib/Devel/Trepan/CmdProcessor/Command/Disassemble.pm
+SHA1 c8a3a758a31d422a1b2ccfa8f830118ed5c6d8d0 lib/Devel/Trepan/Disassemble.pm
 SHA1 3adb6c0b4bd7bfb57744d942519ab2e709d83f53 t/00load.t
 SHA1 0028fef9be7783d9eba29ae4d3940cc99cc8d14e t/00test-pod.t
 SHA1 909763ea48b9df2bbf549bf8f1fc9fcb9a3880f7 t/10test-cmd-complete.t
 SHA1 8fd87785af7925ea4a0502e4b3b536b24185b535 t/10test-opflags.t
-SHA1 9122a1ad34fa707a1d87dd6b90c8b2f5b125ed8d t/20test-disassemble.t
+SHA1 126f0e9672a4cba667f6e0d8f463c596385c8335 t/20test-disassemble.t
 SHA1 d5496ce82ba1a666b80106617adeed2a0156b57e t/Helper.pm
 SHA1 741718bb69697f67d0d0ff5f52f77f6a7f7752ae t/Makefile
 SHA1 812b4d4d03a3dfc69f9558cbc051e08f08dbc365 t/data/disasm2.cmd
-SHA1 16db4e4cb5cc36786e5f319de4e872cc36389748 t/data/disasm2.right
+SHA1 16880b9fd96c357d46c4a4ef21a882f6180bc9de t/data/disasm2.right
 SHA1 1657b89d72ad3409bb29b8098be58da09249bcaf t/data/disassemble.cmd
 SHA1 d4de02360e8b0aad9aba05ba4bcfe8d8fd692008 t/data/disassemble.right
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.11 (GNU/Linux)
 
-iEYEARECAAYFAlDREikACgkQGo3lAIJ17CFUQgCeJzqFJkcVFdl9+MwjfHCR3Jlm
-GLYAnRqOaAIvDLkCiPrT7R0s6fPvLB1i
-=xzFx
+iEYEARECAAYFAlG4bDMACgkQGo3lAIJ17CG6rwCghZS8RD2MXqAku+twWaufHw00
+yBYAoIbdi/1teFjTo4QJhxQCPSRJ5mXo
+=oDJ1
 -----END PGP SIGNATURE-----

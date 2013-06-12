@@ -13,8 +13,11 @@ BEGIN {
 
 use rlib $TREPAN_DIR;
 use Test::More;
+use B::Concise;
 if ($OSNAME eq 'MSWin32') {
-    plan skip_all => "Strawberry Perl doesn't handle exec well" 
+    plan skip_all => "Strawberry Perl doesn't handle exec well"
+} elsif ($B::Concise::VERSION < 0.83) {
+    plan skip_all => "Need a B:Concise 0.83 or greater for this test"
 } else {
     plan;
 }
@@ -28,7 +31,7 @@ my $opts = {
 	    $line =~ s/(^    [A-Z]+) \(0x[a-f0-9]+\)/$1 (0x1234567)/;
 	    $line =~ s/(^=>  [A-Z]+) \(0x[a-f0-9]+\)/$1 (0x1234567)/;
             # use Enbugger; Enbugger->load_debugger('trepan');
-	    # Enbugger->stopn() if $line =~ /^op_first/;
+	    # Enbugger->stop() if $line =~ /^op_first/;
 	    $line =~ s/^    \top_(first|last|next|sibling|sv)(\s+)(0x[a-f0-9]+)/    \top_$1${2}0x7654321/;
 	    $line =~ s/^    \top_type(\s+)(\d+)/    \top_type${1}1955/;
 	    $line =~ s/^    \top_private(.+)$/    \top_private 1027/;
